@@ -5,7 +5,6 @@ import { useAuthStore } from "./auth/auth";
 
 export const useUserStore = defineStore("user_store", {
   state: () => ({
-    // User form data
     frm: {
       id: null,
       first_name: "",
@@ -22,7 +21,6 @@ export const useUserStore = defineStore("user_store", {
       updated_at: "",
     },
 
-    // Image handling
     crop: {
       img: "",
       blob: null,
@@ -44,7 +42,6 @@ export const useUserStore = defineStore("user_store", {
     mdl_crop: null,
     mdl_view: null,
 
-    // Data and pagination
     data_users: ref([]),
     totalPages: ref(1),
     total_records: ref(0),
@@ -72,7 +69,6 @@ export const useUserStore = defineStore("user_store", {
         if (response.data) {
           this.data_users = response.data.data || [];
           
-          // Handle Laravel's default pagination structure
           if (response.data.meta) {
             this.totalPages = response.data.meta.last_page;
             this.total_records = response.data.meta.total;
@@ -87,72 +83,74 @@ export const useUserStore = defineStore("user_store", {
       }
     },
 
-    async onloadProfile() {
-      this.isProfileLoading = true;
-      try {
-        const response = await axios.get("/api/profile");
-        if (response.data) {
-          // Update profile data in store
-          return response.data;
-        }
-      } catch (error) {
-        console.error("Error fetching profile:", error);
-        this.error_Message = "Failed to load profile. Please try again.";
-        throw error;
-      } finally {
-        this.isProfileLoading = false;
-      }
-    },
-
     async createUser(userData) {
       try {
-        const response = await axios.post("/api/users", userData);
-        await this.onloadUser(); // Refresh user list
+        const formData = new FormData();
+        for (const key in userData) {
+          if (key === 'photo' && userData[key] instanceof File) {
+            formData.append(key, userData[key]);
+          } else {
+            formData.append(key, userData[key]);
+          }
+        }
+
+        const response = await axios.post("/api/users", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        await this.onloadUser();
         return { success: true, data: response.data };
       } catch (error) {
         console.error("Error creating user:", error);
-        return { success: false, error: error.response?.data?.message || "Failed to create user" };
+        return { 
+          success: false, 
+          error: error.response?.data?.message || "Failed to create user",
+          errors: error.response?.data?.errors 
+        };
       }
     },
 
     async updateUser(userId, userData) {
       try {
-        const response = await axios.put(`/api/users/${userId}`, userData);
-        await this.onloadUser(); // Refresh user list
+        const formData = new FormData();
+        for (const key in userData) {
+          if (key === 'photo' && userData[key] instanceof File) {
+            formData.append(key, userData[key]);
+          } else {
+            formData.append(key, userData[key]);
+          }
+        }
+        formData.append('_method', 'PUT');
+
+        const response = await axios.post(`/api/users/${userId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        await this.onloadUser();
         return { success: true, data: response.data };
       } catch (error) {
         console.error("Error updating user:", error);
-        return { success: false, error: error.response?.data?.message || "Failed to update user" };
+        return { 
+          success: false, 
+          error: error.response?.data?.message || "Failed to update user",
+          errors: error.response?.data?.errors 
+        };
       }
     },
 
     async deleteUser(userId) {
       try {
         await axios.delete(`/api/users/${userId}`);
-        await this.onloadUser(); // Refresh user list
+        await this.onloadUser();
         return { success: true };
       } catch (error) {
         console.error("Error deleting user:", error);
-        return { success: false, error: error.response?.data?.message || "Failed to delete user" };
-      }
-    },
-
-    async toggleUserStatus(userId, activate) {
-      try {
-        const endpoint = activate ? 'activate' : 'deactivate';
-        await axios.put(`/api/users/${endpoint}/${userId}`);
-        await this.onloadUser(); // Refresh user list
-        return { success: true };
-      } catch (error) {
-        console.error("Error toggling user status:", error);
-        return { success: false, error: error.response?.data?.message || "Failed to change user status" };
-      }
-    },
-
-    changePage(page) {
-      if (page >= 1 && page <= this.totalPages) {
-        this.currentPage = page;
-        this.onloadUser();
+        return { 
+          success: false, 
+          error: error.response?.data?.message || "Failed to delete user" 
+        };
       }
     },
 
@@ -177,6 +175,9 @@ export const useUserStore = defineStore("user_store", {
         blob: null,
         avatar: "/default.png",
       };
+      if (this.v_validate) {
+        this.v_validate.$reset();
+      }
     }
   }
 });

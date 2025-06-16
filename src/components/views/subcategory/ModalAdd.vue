@@ -106,8 +106,6 @@ onMounted(() => {
   categoryStore.onloadCategory();
 });
 
-
-
 const onclickAddMarket = async () => {
   subcategoryStore.vv.$validate();
   if (subcategoryStore.vv.$error) {
