@@ -18,26 +18,18 @@
               <Loading />
             </td>
           </tr>
-          <tr v-if="
-            userStore.data_users.length === 0 &&
-            !userStore.isLoading
-          ">
+          <tr v-if="userStore.data_users.length === 0 && !userStore.isLoading">
             <td colspan="6" class="text-center py-3">គ្មាននិន្នន័យ</td>
           </tr>
-          <template v-if="!userStore.isLoading">
-            <tr v-for="(user, i) in userStore.data_users" :key="user.id" class="align-middle">
+          <template v-else-if="!userStore.isLoading">
+            <tr v-for="(user, i) in displayedUsers" :key="user.id" class="align-middle">
               <td>
-                {{
-                  i +
-                  1 +
-                  (userStore.currentPage - 1) *
-                  userStore.itemsPerPage
-                }}
+                {{ i + 1 + (userStore.currentPage - 1) * userStore.itemsPerPage }}
               </td>
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <div class="profile_user bg-light overflow-hidden">
-                 <img :src="'http://clinic-management-system.test/' + user.profile?.photo" class="card-img" alt="" />
+                    <img :src="'http://clinic-management-system.test/' + user.profile?.photo" class="card-img" alt="" />
                   </div>
                   <div class="d-flex flex-column justify-content-center">
                     <span>
@@ -73,77 +65,82 @@
         </tbody>
       </table>
     </div>
-    <div v-if="!userStore.isLoading && userStore.totalPages > 1">
+    <div v-if="!userStore.isLoading && userStore.total_records > userStore.itemsPerPage">
       <Pagination />
     </div>
   </div>
 </template>
 
 <script setup>
-  import Pagination from "@/components/views/user/Pagination.vue";
-  import { useUserStore } from "@/stores/views/user_store";
-  import { onMounted } from "vue";
-  import axios from "axios";
-  import Loading from "../reusable/loading.vue";
+import Pagination from "@/components/views/user/Pagination.vue";
+import { useUserStore } from "@/stores/views/user_store";
+import { onMounted, computed } from "vue";
+import axios from "axios";
+import Loading from "../reusable/loading.vue";
 
-  const userStore = useUserStore();
+const userStore = useUserStore();
 
-  onMounted(() => {
-    userStore.onloadUser();
-  });
+// Computed property to get the current page's users
+const displayedUsers = computed(() => {
+  return userStore.data_users.slice(0, userStore.itemsPerPage);
+});
 
-  const onclickEditUser = (user) => {
-    userStore.selectedId = user.id;
-    userStore.frm.first_name = user.profile?.first_name || '';
-    userStore.frm.last_name = user.profile?.last_name || '';
-    userStore.frm.email = user.email;
-    userStore.frm.phone = user.profile?.phone || '';
-    userStore.frm.pass = "";
-    userStore.frm.con_pass = "";
-    userStore.frm.address = user.profile?.address || '';
-    userStore.frm.gender = user.profile?.gender_id || 1;
-    userStore.frm.role_id = user.role?.id || '';
-    userStore.crop.img = "";
-    userStore.crop.avatar = user.profile?.photo || "/default.png";
+onMounted(() => {
+  userStore.onloadUser();
+});
 
-    if (userStore.v_validate?.$error) {
-      userStore.v_validate.$reset();
+const onclickEditUser = (user) => {
+  userStore.selectedId = user.id;
+  userStore.frm.first_name = user.profile?.first_name || '';
+  userStore.frm.last_name = user.profile?.last_name || '';
+  userStore.frm.email = user.email;
+  userStore.frm.phone = user.profile?.phone || '';
+  userStore.frm.pass = "";
+  userStore.frm.con_pass = "";
+  userStore.frm.address = user.profile?.address || '';
+  userStore.frm.gender = user.profile?.gender_id || 1;
+  userStore.frm.role_id = user.role?.id || '';
+  userStore.crop.img = "";
+  userStore.crop.avatar = user.profile?.photo || "/default.png";
+
+  if (userStore.v_validate?.$error) {
+    userStore.v_validate.$reset();
+  }
+  userStore.mdl_add?.show();
+};
+
+const onclickDeleteUser = (user) => {
+  userStore.selectedId = user.id;
+  userStore.frm.first_name = user.profile?.first_name || '';
+  userStore.frm.last_name = user.profile?.last_name || '';
+  userStore.mdl_delete?.show();
+};
+
+const onclickViewsUser = (user) => {
+  userStore.frm.id = user.id;
+  userStore.frm.email = user.email;
+  userStore.frm.phone = user.profile?.phone || '';
+  userStore.frm.first_name = user.profile?.first_name || '';
+  userStore.frm.last_name = user.profile?.last_name || '';
+  userStore.frm.address = user.profile?.address || '';
+  userStore.frm.gender = user.profile?.gender_id || '';
+  userStore.frm.role_id = user.role?.id || '';
+  userStore.frm.created_at = user.created_at;
+  userStore.frm.updated_at = user.updated_at;
+  userStore.crop.avatar = user.profile?.photo || "/default.png";
+  userStore.mdl_view?.show();
+};
+
+const onclickStatus = async (user) => {
+  try {
+    if (user.is_active) {
+      await axios.put(`/api/users/disable/${user.id}`);
+    } else {
+      await axios.put(`/api/users/enable/${user.id}`);
     }
-    userStore.mdl_add?.show();
-  };
-
-  const onclickDeleteUser = (user) => {
-    userStore.selectedId = user.id;
-    userStore.frm.first_name = user.profile?.first_name || '';
-    userStore.frm.last_name = user.profile?.last_name || '';
-    userStore.mdl_delete?.show();
-  };
-
-  const onclickViewsUser = (user) => {
-    userStore.frm.id = user.id;
-    userStore.frm.email = user.email;
-    userStore.frm.phone = user.profile?.phone || '';
-    userStore.frm.first_name = user.profile?.first_name || '';
-    userStore.frm.last_name = user.profile?.last_name || '';
-    userStore.frm.address = user.profile?.address || '';
-    userStore.frm.gender = user.profile?.gender_id || '';
-    userStore.frm.role_id = user.role?.id || '';
-    userStore.frm.created_at = user.created_at;
-    userStore.frm.updated_at = user.updated_at;
-    userStore.crop.avatar = user.profile?.photo || "/default.png";
-    userStore.mdl_view?.show();
-  };
-
-  const onclickStatus = async (user) => {
-    try {
-      if (user.is_active) {
-        await axios.put(`/api/users/disable/${user.id}`);
-      } else {
-        await axios.put(`/api/users/enable/${user.id}`);
-      }
-      user.is_active = !user.is_active;
-    } catch (error) {
-      console.error("Error toggling user status:", error);
-    }
-  };
+    user.is_active = !user.is_active;
+  } catch (error) {
+    console.error("Error toggling user status:", error);
+  }
+};
 </script>

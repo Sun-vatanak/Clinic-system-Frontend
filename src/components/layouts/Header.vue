@@ -1,6 +1,6 @@
 <template>
   <header class="bg-white rounded-4">
-    <div class="d-flex header-admin justify-content-between align-items-center p-3">
+    <div class="d-flex header-admin rounded-4 justify-content-between align-items-center p-3">
       <div class="d-flex align-items-start gap-4 d-lg-flex align-items-center">
         <button class="btn d-block d-xl-none p-0" type="button" data-bs-toggle="offcanvas"
           data-bs-target="#sidebarBackdrop" aria-controls="sidebarBackdrop">

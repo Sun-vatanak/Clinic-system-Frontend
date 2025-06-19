@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-12 d-flex flex-column gap-3">
                                     <button type="button" :disabled="isLoading"
-                                        class="btn btn-secondary w-100 rounded-5" @click="goBack">ត្រឡប់ក្រោយ</button>
+                                        class="btn bg-primary-subtle w-100 rounded-5" @click="goBack">ត្រឡប់ក្រោយ</button>
                                 </div>
                             </form>
                         </div>
@@ -48,8 +48,8 @@
                 </div>
 
                 <div class="d-none d-md-block col-6">
-                    <div class="card border-0 h-100 bg-secondary rounded-4">
-                        <img :src="image" alt="" class="image" />
+                    <div class="card border-0 h-100  bg-primary-subtle rounded-4">
+                        <img :src="image" alt="" class="image ms-4 mt-3" />
                     </div>
                 </div>
             </div>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup>
-import image from "@/assets/img/forget.png";
+import image from "@/assets/img/fogotpass.png";
 import { reactive, ref, computed, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { required, email, integer, helpers, minLength } from '@vuelidate/validators';
@@ -104,7 +104,7 @@ const onClickForgetPassword = async () => {
     frmData.append("email", forgetPasswordStore.data.email);
     isLoading.value = true;
     try {
-        const res = await axios.post(`/api/forgot/password`, frmData, {
+        const res = await axios.post(`/api/forgot-password`, frmData, {
             headers: {
                 Accept: "application/json",
             },

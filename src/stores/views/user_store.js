@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
 import { ref } from "vue";
-import { useAuthStore } from "./auth/auth";
 
 export const useUserStore = defineStore("user_store", {
   state: () => ({
@@ -35,6 +34,8 @@ export const useUserStore = defineStore("user_store", {
     selectedId: null,
     itemsPerPage: 10,
     currentPage: 1,
+    totalPages: 1,
+    total_records: 0,
     error_Message: "",
 
     mdl_add: null,
@@ -42,14 +43,18 @@ export const useUserStore = defineStore("user_store", {
     mdl_edit: null,
     mdl_crop: null,
     mdl_view: null,
-
+    itemsPerPage: 6,
     data_users: ref([]),
-    totalPages: ref(1),
-    total_records: ref(0),
     searchQuery: ref(""),
     selectedRole: ref(""),
     isLoading: ref(false),
     isProfileLoading: ref(false),
+    vendorDash: {},
+    orderChart: {},
+    adminDash: {},
+    customerChart: {},
+    orderAminChart: {},
+  
   }),
 
   actions: {
@@ -63,6 +68,7 @@ export const useUserStore = defineStore("user_store", {
             per_page: this.itemsPerPage,
             search: this.searchQuery,
             role_id: this.selectedRole,
+            
             scol: "id",
             sdir: "desc"
           }
@@ -74,6 +80,7 @@ export const useUserStore = defineStore("user_store", {
           if (response.data.meta) {
             this.totalPages = response.data.meta.last_page;
             this.total_records = response.data.meta.total;
+            this.currentPage = response.data.meta.current_page;
           }
         }
       } catch (error) {
@@ -82,6 +89,13 @@ export const useUserStore = defineStore("user_store", {
         this.error_Message = "Failed to load users. Please try again.";
       } finally {
         this.isLoading = false;
+      }
+    },
+
+    changePage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+        this.onloadUser();
       }
     },
 

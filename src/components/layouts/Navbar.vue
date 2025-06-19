@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-sidebar ronded-4 p-3 d-none d-xl-block">
+  <div class="sticky-sidebar rounded ronded-4 p-3 d-none d-xl-block">
     <div class="admin-logo-img d-flex justify-content-center">
       <img src="@/assets/img/logoSys.png" class="logo-admin" alt="" />
     </div>
@@ -16,7 +16,7 @@
         <router-link to="/market"
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Market' }">
-          <span><i class="bi bi-basket"></i></span>
+          <span><i class="bi bi-receipt"></i></span>
           <span>ការបង្កើតវិក្កយបត្រ</span>
         </router-link>
       </li>
@@ -25,7 +25,7 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2" :class="{
             'text-primary bg-light rounded-5': route.name == 'ProductCategory',
           }">
-          <span><i class="bi bi-folder"></i></span>
+          <span><i class="bi bi-person-wheelchair"></i></span>
           <span>ការគ្រប់គ្រងអ្នកជំងឺ</span>
         </router-link>
       </li>
@@ -34,7 +34,7 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2" :class="{
             'text-primary bg-light rounded-5': route.name == 'SubCategory',
           }">
-          <span><i class="bi bi-diagram-3"></i></span>
+          <span><i class="bi bi-people-fill"></i></span>
           <span>ប្រព័ន្ធណាត់ជួប</span>
         </router-link>
       </li>
@@ -58,7 +58,7 @@
         <router-link to="/tracking"
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Tracking' }">
-          <span><i class="bi bi-truck"></i></span>
+          <span><i class="bi bi-box-seam-fill"></i></span>
           <span>ការគ្រប់គ្រងឱសថ</span>
         </router-link>
       </li>

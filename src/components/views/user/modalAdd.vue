@@ -192,9 +192,9 @@
                 >
                   <option value="">ជ្រើសរើសតួនាទី</option>
                   <option value="1">អ្នកគ្រប់គ្រង​ជាន់ខ្ពស់</option>
-                  <option value="2">អ្នកគ្រប់គ្រងហាង</option>
-                  <option value="3">អ្នកដឹកជញ្ជូន</option>
-                  <option value="4">អតិថិជន</option>
+                  <option value="2">អ្វេជ្ជបណ្ឌិត</option>
+                  <option value="3">អ្បុគ្គលិក</option>
+                  <option value="4">អ្នកជំងឺ</option>
                 </select>
                 <div
                   class="invalid-feedback d-block ps-2"
@@ -305,7 +305,7 @@
                     checked
                     type="radio"
                     id="male"
-                    value="1"
+                    value="0"
                     v-model="userStore.frm.gender_id"
                   />
                   <label class="form-check-label" for="male"> ប្រុស </label>
@@ -315,7 +315,7 @@
                     class="form-check-input"
                     type="radio"
                     id="fmale"
-                    value="2"
+                    value="1"
                     v-model="userStore.frm.gender_id"
                   />
                   <label class="form-check-label" for="fmale"> ស្រី </label>

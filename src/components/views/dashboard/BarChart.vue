@@ -2,7 +2,7 @@
   <div class="bg-white p-4 rounded-4">
     <div class="row">
       <div class="col-12">
-        <h5 class="text-dark-emphasis">របាយការណ៍នៃការកម្មង់</h5>
+        <h5 class="text-dark-emphasis">របាយការណ៍នៃការលក់</h5>
       </div>
       <div class="col-12">
         <div>

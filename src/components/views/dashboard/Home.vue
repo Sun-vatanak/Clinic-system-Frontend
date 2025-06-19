@@ -17,8 +17,7 @@
                   </div>
                </div>
                <p class="fs-3 fw-semibold m-0">
-                  {{ authStore.user?.role?.id == 1 ? homeStore.adminDash.total_users :
-                     formatCurrency(homeStore.vendorDash.total_revenue) }}
+              {{ homeStore.userMeta?.total }}
                </p>
             </div>
          </div>
@@ -26,11 +25,11 @@
             <div class="bg-white rounded-4 border-0 p-4 d-flex flex-column justify-content-center gap-3">
                <div class="d-flex align-items-center justify-content-between">
                   <div class="m-0 text-dark-emphasis fw-semibold">
-                     {{ authStore.user?.role?.id == 1 ? 'អ្នកគ្រប់គ្រងហាង' : 'ផលិតផលសរុប' }}
+                     {{ authStore.user?.role?.id == 1 ? 'វេជ្ជបណ្ឌិត' : 'ផលិតផលសរុប' }}
                   </div>
                   <div class="btn-action-summary bg-light">
                      <template v-if="authStore.user?.role?.id === 1">
-                        <i class="bi bi-shop text-primary fw-medium fs-5"></i>
+                        <i class="bi bi-person-workspace text-primary fw-medium fs-5"></i>
                      </template>
                      <template v-else>
                         <i class="bi-box-seam text-primary fw-medium fs-5"></i>
@@ -38,8 +37,7 @@
                   </div>
                </div>
                <p class="fs-3 fw-semibold m-0">
-                  {{ authStore.user?.role?.id == 1 ? homeStore.adminDash.total_vendors :
-                     homeStore.vendorDash.total_products }}
+                  {{ homeStore.userMeta?.total_doctors }}
                </p>
             </div>
          </div>
@@ -59,8 +57,7 @@
                   </div>
                </div>
                <p class="fs-3 fw-semibold m-0">
-                  {{ authStore.user?.role?.id == 1 ? homeStore.adminDash.total_deliveries :
-                     homeStore.vendorDash.total_orders }}
+              
                </p>
             </div>
          </div>
@@ -109,7 +106,7 @@ const homeStore = useHomeStore();
 
 onMounted(() => {
    if (authStore.user?.role?.id == 1) {
-      homeStore.onloadAdminSummeries();
+      homeStore.onloadUserSummeries();
    }
 
    if (authStore.user?.role?.id == 2) {
