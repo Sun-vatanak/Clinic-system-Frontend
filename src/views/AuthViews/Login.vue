@@ -2,8 +2,8 @@
     <div class="vh-100 d-flex justify-content-center align-items-center">
         <div class="row p-3 px-1 mx-auto bg-white rounded rounded-3 w-auth-form">
             <div class="d-none d-md-block col-6">
-                <div class="card border-0 h-100 bg-secondary">
-                    <img :src="image" alt="" class="image" />
+                <div class="card border-0 d-flex justify-content-center h-100  bg-primary-subtle">
+                    <img :src="image" alt="" class="image ms-5" />
                 </div>
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
@@ -78,7 +78,7 @@
     </div>
 </template>
 <script setup>
-import image from "@/assets/img/login.png";
+import image from "@/assets/img/doctor.webp";
 import { useRouter } from "vue-router";
 import { required, helpers, minLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";

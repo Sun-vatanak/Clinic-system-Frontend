@@ -17,7 +17,7 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Market' }">
           <span><i class="bi bi-basket"></i></span>
-          <span>គ្រប់គ្រងផ្សារ</span>
+          <span>ការបង្កើតវិក្កយបត្រ</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -26,7 +26,7 @@
             'text-primary bg-light rounded-5': route.name == 'ProductCategory',
           }">
           <span><i class="bi bi-folder"></i></span>
-          <span>គ្រប់គ្រងប្រភេទ</span>
+          <span>ការគ្រប់គ្រងអ្នកជំងឺ</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -35,7 +35,7 @@
             'text-primary bg-light rounded-5': route.name == 'SubCategory',
           }">
           <span><i class="bi bi-diagram-3"></i></span>
-          <span>ប្រភេទរង</span>
+          <span>ប្រព័ន្ធណាត់ជួប</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -51,7 +51,7 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Driver' }">
           <span><i class="bi bi-person-gear"></i></span>
-          <span>អ្នកដឹកជញ្ចូន</span>
+          <span>ការគ្រប់គ្រងការពិគ្រោះយោបល់</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -59,7 +59,7 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Tracking' }">
           <span><i class="bi bi-truck"></i></span>
-          <span>ការដឹកជញ្ជូន</span>
+          <span>ការគ្រប់គ្រងឱសថ</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -67,7 +67,8 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2"
           :class="{ 'text-primary bg-light rounded-5': route.name == 'Vendor' }">
           <span><i class="bi bi-shop"></i></span>
-          <span>អ្នកលក់</span>
+          <span>ប្រព័ន្ធវេជ្ជបញ្ជា
+</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">
@@ -194,7 +195,7 @@
                 'text-dark': !route.name == 'Market',
               }">
               <span><i class="bi bi-basket"></i></span>
-              <span>គ្រប់គ្រងផ្សារ</span>
+              <span>ការគ្រប់គ្រងអ្នកជំងឺ</span>
             </router-link>
           </li>
           <li data-bs-dismiss="offcanvas" aria-label="Close" v-if="authStore.user?.role?.id == 1">
@@ -205,7 +206,7 @@
                 'text-dark': !route.name == 'productCategory',
               }">
               <span><i class="bi bi-grid"></i></span>
-              <span>គ្រប់គ្រងប្រភេទ</span>
+              <span>ប្រព័ន្ធណាត់ជួប</span>
             </router-link>
           </li>
           <li data-bs-dismiss="offcanvas" aria-label="Close" v-if="authStore.user?.role?.id == 1">
@@ -215,7 +216,7 @@
                 'text-dark': !route.name == 'SubCategory',
               }">
               <span><i class="bi bi-diagram-3"></i></span>
-              <span>ប្រភេទរង</span>
+              <span>ការគ្រប់គ្រងការពិគ្រោះយោបល់</span>
             </router-link>
           </li>
           <li data-bs-dismiss="offcanvas" aria-label="Close" v-if="authStore.user?.role?.id == 1">
@@ -235,7 +236,7 @@
                 'text-dark': !route.name == 'Driver',
               }">
               <span><i class="bi bi-person-gear"></i></span>
-              <span>អ្នកដឹកជញ្ជូន</span>
+              <span>ការគ្រប់គ្រងឱសថ និងសារពើភ័ណ្ឌ</span>
             </router-link>
           </li>
           <li data-bs-dismiss="offcanvas" aria-label="Close" v-if="authStore.user?.role?.id == 1">
@@ -245,7 +246,7 @@
                 'text-dark': !route.name == 'Tracking',
               }">
               <span><i class="bi bi-truck"></i></span>
-              <span>ការដឹកជញ្ជូន</span>
+              <span>ប្រព័ន្ធវិក័យប័ត្</span>
             </router-link>
           </li>
           <li data-bs-dismiss="offcanvas" aria-label="Close" v-if="authStore.user?.role?.id == 1">

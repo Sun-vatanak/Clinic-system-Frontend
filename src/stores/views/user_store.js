@@ -9,11 +9,14 @@ export const useUserStore = defineStore("user_store", {
       id: null,
       first_name: "",
       last_name: "",
-      gender: 1,
+      photo: "",
+      gender_id: 1,
       email: "",
       phone: "",
       address: "",
       role_id: "",
+      telegram_id: "",
+      is_active: 1,
       is_remove: 0,
       pass: "",
       con_pass: "",
@@ -30,12 +33,10 @@ export const useUserStore = defineStore("user_store", {
     // UI state
     v_validate: null,
     selectedId: null,
-    is_active: false,
     itemsPerPage: 10,
     currentPage: 1,
     error_Message: "",
 
-    // Modal controls
     mdl_add: null,
     mdl_delete: null,
     mdl_edit: null,
@@ -54,6 +55,7 @@ export const useUserStore = defineStore("user_store", {
   actions: {
     async onloadUser() {
       this.isLoading = true;
+      
       try {
         const response = await axios.get("/api/users", {
           params: {
@@ -83,87 +85,19 @@ export const useUserStore = defineStore("user_store", {
       }
     },
 
-    async createUser(userData) {
-      try {
-        const formData = new FormData();
-        for (const key in userData) {
-          if (key === 'photo' && userData[key] instanceof File) {
-            formData.append(key, userData[key]);
-          } else {
-            formData.append(key, userData[key]);
-          }
-        }
-
-        const response = await axios.post("/api/users", formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        await this.onloadUser();
-        return { success: true, data: response.data };
-      } catch (error) {
-        console.error("Error creating user:", error);
-        return { 
-          success: false, 
-          error: error.response?.data?.message || "Failed to create user",
-          errors: error.response?.data?.errors 
-        };
-      }
-    },
-
-    async updateUser(userId, userData) {
-      try {
-        const formData = new FormData();
-        for (const key in userData) {
-          if (key === 'photo' && userData[key] instanceof File) {
-            formData.append(key, userData[key]);
-          } else {
-            formData.append(key, userData[key]);
-          }
-        }
-        formData.append('_method', 'PUT');
-
-        const response = await axios.post(`/api/users/${userId}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        await this.onloadUser();
-        return { success: true, data: response.data };
-      } catch (error) {
-        console.error("Error updating user:", error);
-        return { 
-          success: false, 
-          error: error.response?.data?.message || "Failed to update user",
-          errors: error.response?.data?.errors 
-        };
-      }
-    },
-
-    async deleteUser(userId) {
-      try {
-        await axios.delete(`/api/users/${userId}`);
-        await this.onloadUser();
-        return { success: true };
-      } catch (error) {
-        console.error("Error deleting user:", error);
-        return { 
-          success: false, 
-          error: error.response?.data?.message || "Failed to delete user" 
-        };
-      }
-    },
-
     resetForm() {
       this.frm = {
         id: null,
         first_name: "",
         last_name: "",
-        gender: 1,
+        photo: "",
+        gender_id: 1,
         email: "",
         phone: "",
         address: "",
         role_id: "",
+        telegram_id: "",
+        is_active: 1,
         is_remove: 0,
         pass: "",
         con_pass: "",

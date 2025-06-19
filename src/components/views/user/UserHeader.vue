@@ -52,6 +52,7 @@ const onClickAddUser = () => {
     userStore.frm.con_pass = ''
     userStore.frm.address = ''
     userStore.frm.gender = 1
+    userStore.telegram_id=''
     userStore.crop.img = ''
     userStore.crop.blob = null
     if (userStore.v_validate) {

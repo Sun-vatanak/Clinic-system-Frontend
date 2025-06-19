@@ -37,7 +37,7 @@
               <td>
                 <div class="d-flex align-items-center gap-2">
                   <div class="profile_user bg-light overflow-hidden">
-                 <img :src="'/user-photos/' + user.profile?.photo" class="card-img" alt="" />
+                 <img :src="'http://clinic-management-system.test/' + user.profile?.photo" class="card-img" alt="" />
                   </div>
                   <div class="d-flex flex-column justify-content-center">
                     <span>
@@ -91,7 +91,6 @@
   onMounted(() => {
     userStore.onloadUser();
   });
-  // console.log(user.profile?.photo); // Should output just the filename "TnL6CMu2WIisHaukNlCw1zUlvf7HoU46yEr1vxxY.png"
 
   const onclickEditUser = (user) => {
     userStore.selectedId = user.id;
