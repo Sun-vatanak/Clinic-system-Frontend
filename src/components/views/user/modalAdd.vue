@@ -166,21 +166,6 @@
                 </div>
               </div>
 
-              <div class="mb-3 w-100">
-                <div class="input-field">
-                  <input
-                    type="text"
-                    class="form-control rounded-5"
-                    id="telegram_id"
-                    v-model="userStore.frm.telegram_id"
-                    placeholder=""
-                    autocomplete="off"
-                  />
-                  <label for="telegram_id" class="form-label"
-                    >Telegram ID</label
-                  >
-                </div>
-              </div>
 
               <div class="mb-3 w-100">
                 <label for="role" class="form-label">តួនាទី</label>
@@ -384,6 +369,7 @@ import {
 } from "@vuelidate/validators";
 import useVuelidate from "@vuelidate/core";
 import axios from "axios";
+
 
 const userStore = useUserStore();
 const authStore = useAuthStore();

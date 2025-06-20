@@ -25,8 +25,8 @@
           class="routerLink text-decoration-none text-truncate px-3 d-flex align-items-center gap-2 p-2 mb-2" :class="{
             'text-primary bg-light rounded-5': route.name == 'ProductCategory',
           }">
-          <span><i class="bi bi-person-wheelchair"></i></span>
-          <span>ការគ្រប់គ្រងអ្នកជំងឺ</span>
+          <span><i class="bi bi-box-seam"></i></span>
+          <span>ប្រភេទផលិតផល</span>
         </router-link>
       </li>
       <li v-if="authStore.user?.role?.id == 1">

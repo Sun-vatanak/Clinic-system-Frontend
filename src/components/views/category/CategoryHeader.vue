@@ -48,10 +48,11 @@ const exportToCSV = async () => {
     const response = await axios.get("/api/categories?all=true");
     if (response.data.result) {
       const allData = response.data.data;
-      const headers = ['ឈ្មោះប្រភេទផលិតផល'];
+      const headers = ['ឈ្មោះប្រភេទផលិតផល','ការពិពណ៌នា'];
 
       const data = allData.map(item => [
         `"${item.name || 'N/A'}"`,
+        `"${item.description || 'N/A'}"`,
       ]);
       const BOM = "\uFEFF";
       const csvContent = BOM + [

@@ -6,6 +6,8 @@
           <tr>
             <th class="text-dark-emphasis ps-3" scope="col">ល.រ</th>
             <th class="text-dark-emphasis" scope="col">ឈ្មោះប្រភេទផលិតផល</th>
+             <th class="text-dark-emphasis" scope="col">ការពិពណ៌នា</th>
+
             <th class="text-dark-emphasis text-end action-category" scope="col">
               មុខងារ
             </th>
@@ -25,11 +27,16 @@
             <td>
               <div class="d-flex align-items-center gap-3">
                 <div class="profile_category">
-                  <img :src="category.photo" alt="" />
+                  <img :src="`http://clinic-management-system.test/`+category.photo" alt="" />
                 </div>
                 <span>
                   {{ category.name }}
                 </span>
+              </div>
+            </td>
+            <td>
+               <div class="d-flex align-items-center ">
+                 <span>{{ category.description }}</span>
               </div>
             </td>
             <td>
@@ -66,6 +73,7 @@ onMounted(() => {
 const onclickEditCategory = (categoryOBJ) => {
   categoryStore.selectedId = categoryOBJ.id;
   categoryStore.frm.name = categoryOBJ.name;
+  categoryStore.frm.description = categoryOBJ.description;
   categoryStore.frm.create_at = categoryOBJ.create_at;
   categoryStore.crop.avatar = categoryOBJ.photo;
   categoryStore.frm.photo = categoryOBJ.photo;;
@@ -73,6 +81,7 @@ const onclickEditCategory = (categoryOBJ) => {
   categoryStore.mdl_add.show();
   if (categoryStore.v_validate) {
     categoryStore.v_validate.$reset();
+    categoryStore.description=''
   }
 };
 

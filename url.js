@@ -1,0 +1,1 @@
+const iamge_url=`http://clinic-management-system.test/`;

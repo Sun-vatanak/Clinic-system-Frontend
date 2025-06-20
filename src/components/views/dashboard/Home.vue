@@ -61,6 +61,7 @@
                </p>
             </div>
          </div>
+     
          <div class="col-12 col-lg-3 col-sm-6">
             <div class="bg-white rounded-4 border-0 p-4 d-flex flex-column justify-content-center gap-3">
                <div class="d-flex align-items-center justify-content-between">
@@ -77,11 +78,11 @@
                   </div>
                </div>
                <p class="fs-3 fw-semibold m-0">
-                  {{ authStore.user?.role?.id == 1 ? homeStore.adminDash.total_products :
-                     homeStore.vendorDash.total_customers }}
+                  {{ categoryStore.meta.total }}
                </p>
             </div>
          </div>
+         
          <div :class="{ 'col-12': authStore.user?.role?.id == 2, 'col-12 col-xl-9': authStore.user?.role?.id == 1 }">
             <BarChart />
          </div>
@@ -98,19 +99,24 @@ import BarChart from "@/components/views/dashboard/BarChart.vue";
 import DoughnutChart from "@/components/views/dashboard/DoughnutChart.vue";
 import { useHomeStore } from "@/stores/views/home_store";
 import { useAuthStore } from "@/stores/views/auth/auth";
+import { useCategoryStore } from "@/stores/views/category_store";
 
 const authStore = useAuthStore();
-
 const homeStore = useHomeStore();
+const categoryStore = useCategoryStore();
 
-
-onMounted(() => {
+onMounted(async () => {
    if (authStore.user?.role?.id == 1) {
-      homeStore.onloadUserSummeries();
+      await homeStore.onloadUserSummeries();
+      await categoryStore.onloadCategory();
+      
+      // Debug logs
+      console.log('Category store meta:', categoryStore.meta);
+      console.log('Total categories:', categoryStore.meta.total);
    }
 
    if (authStore.user?.role?.id == 2) {
-      homeStore.onloadVendorSummeries();
+      await homeStore.onloadVendorSummeries();
    }
 });
 
@@ -121,6 +127,4 @@ const formatCurrency = (value) => {
       maximumFractionDigits: 0
    }).format(value) + '៛';
 };
-
-
 </script>
