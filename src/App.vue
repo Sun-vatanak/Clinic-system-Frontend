@@ -6,7 +6,7 @@
       </div>
       <div :class="{'col-12 col-xl-10':routes.meta.showNavbar == true}" >
         <div v-if="routes.meta.showNavbar == true || routes.meta.showHeader == true">
-          <Header/>
+          <Header />
         </div>
         <RouterView />
       </div>

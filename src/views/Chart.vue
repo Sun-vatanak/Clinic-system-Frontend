@@ -11,7 +11,7 @@
               <h5 class="mb-3 fw-bold">Revenue</h5>
               <p class="d-flex align-items-center">
                 <i class="bi bi-arrow-down-short fs-5 d-block text-danger"></i>
-                <span class="text-danger d-block">10%</span>
+                <span class="text-danger d-block">20%</span>
               </p>
             </div>
             <div class="d-flex gap-3">

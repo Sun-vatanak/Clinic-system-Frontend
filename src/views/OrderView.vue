@@ -30,6 +30,7 @@
                                 <option value="7">បានបញ្ចប់</option>
                                 <option value="8">បានបដិសេធ</option>
                                 <option value="9">បរាជ័យក្នុងការដឹកជញ្ជូន</option>
+                                <option value="10">បរាជ័យក្នុងការដឹកជញ្ជូននិងម្ហូប</option>
                             </select>
                         </div>
                         <div>
