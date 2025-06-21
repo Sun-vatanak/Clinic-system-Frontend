@@ -6,6 +6,7 @@
         </div>
     </div>
 </template>
+
 <script setup>
 import TrackingList from '@/components/views/trackings/TrackingList.vue';
 import TrackingHeader from '@/components/views/trackings/TrackingHeader.vue';
