@@ -67,7 +67,7 @@
                 :class="{ 'is-invalid': categoryStore.v_validate.photo.$error }"
                 class="form-control d-none"
                 id="file_img"
-                accept="image/jpeg, image/png, image/gif"
+                accept="image/jpeg, image/png, image/webp, image/gif"
               />
             </div>
           </div>
@@ -211,7 +211,7 @@ const onSelectedImage = (e) => {
   }
 
   const file = e.currentTarget.files[0];
-  const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+ const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
   const maxSize = 4 * 1024 * 1024;
 
   if (!allowedTypes.includes(file.type)) {

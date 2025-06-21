@@ -33,7 +33,7 @@
                   <span class="fw-medium mb-1"
                     >បញ្ចូលរូបភាព​អ្នកប្រើប្រាស់</span
                   >
-                  <span class="fs-13">ទំហំនៃរូបភាព​ 1 MB</span>
+                  <span class="fs-13">ទំហំនៃរូបភាព​ 4 MB</span>
                 </div>
                 <div class="d-flex align-items-center gap-4">
                   <a
@@ -56,7 +56,7 @@
                   @change="onSelectedImage($event)"
                   class="form-control d-none"
                   id="file_img"
-                  accept="image/jpeg, image/png, image/gif"
+                   accept="image/jpeg, image/png, image/webp, image/gif"
                 />
               </div>
             </div>
@@ -485,18 +485,18 @@ const onSelectedImage = (e) => {
   if (e.currentTarget.files.length === 0) return;
 
   const file = e.currentTarget.files[0];
-  const maxSize = 1 * 1024 * 1024;
-  const allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+  const maxSize = 4 * 1024 * 1024;
+  const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
   if (!allowedTypes.includes(file.type)) {
-    userStore.error_Message = "អ្នកអាចប្រើរូបភាពប្រភេទ JPEG, PNG និង GIF";
+    userStore.error_Message = "អ្នកអាចប្រើរូបភាពប្រភេទ JPEG, Webp, PNG និង GIF";
     userStore.mdl_errorTypeImage.show();
     userStore.mdl_add.hide();
     return;
   }
 
   if (file.size > maxSize) {
-    userStore.error_Message = "ទំហំរូបភាពមិនត្រូវលើស 1MB";
+    userStore.error_Message = "ទំហំរូបភាពមិនត្រូវលើស 4MB";
     userStore.mdl_errorTypeImage.show();
     userStore.mdl_add.hide();
     return;
@@ -529,6 +529,7 @@ const resetFormErrors = () => {
 };
 
 const onclickSaveUser = async () => {
+  
   resetFormErrors();
 
   const isValid = await userStore.v_validate.$validate();
@@ -593,8 +594,6 @@ const handleApiError = (error) => {
 
   if (error.response?.status === 422) {
     const errors = error.response.data.errors || {};
-
-    // Handle specific field errors
     if (errors.email) {
       isEmailTaken.value = errors.email.some((msg) => msg.includes("taken"));
       backendErrors.value.email = errors.email[0];

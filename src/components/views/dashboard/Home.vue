@@ -45,7 +45,7 @@
             <div class="bg-white rounded-4 border-0 p-4 d-flex flex-column justify-content-center gap-3">
                <div class="d-flex align-items-center justify-content-between">
                   <div class="m-0 text-dark-emphasis fw-semibold">
-                     {{ authStore.user?.role?.id == 1 ? 'អ្នកដឹកជញ្ជូន' : 'ការកម្មង់សរុប' }}
+                     {{ authStore.user?.role?.id == 1 ? 'អ្នកដឹកជំងឺ' : 'ការកម្មង់សរុប' }}
                   </div>
                   <div class="btn-action-summary bg-light">
                      <template v-if="authStore.user?.role?.id === 1">
